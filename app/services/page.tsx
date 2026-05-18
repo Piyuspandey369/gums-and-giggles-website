@@ -7,6 +7,13 @@ import {
   PageHero,
   SectionHeader,
   ServiceCard,
+  actionRowClass,
+  container,
+  h2Class,
+  imagePanelClass,
+  leadClass,
+  section,
+  sectionPink,
 } from "@/components/site";
 import { services } from "@/data/services";
 
@@ -27,15 +34,15 @@ export default function ServicesPage() {
         imageAlt="Dental clinic hero illustration"
       />
 
-      <section className="section">
-        <div className="container">
+      <section className={section}>
+        <div className={container}>
           <SectionHeader
             eyebrow="What we offer"
             title="All dental treatments at Gums & Giggles"
             lead="Select a service to learn more about symptoms, pricing, what to expect, and how to book."
             center
           />
-          <div className="services-grid">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard service={service} key={service.slug} />
             ))}
@@ -43,10 +50,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="section section-pink">
-        <div className="container doctor-grid">
-          <div className="doctor-photo">
+      <section className={sectionPink}>
+        <div className={`${container} grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]`}>
+          <div className={imagePanelClass}>
             <Image
+              className="object-cover"
               src="/clinic_photos/doctor_photo_with_a_adult_male_patient.webp"
               alt="Dr. Niyukty Arjal consulting with a patient"
               fill
@@ -54,15 +62,15 @@ export default function ServicesPage() {
             />
           </div>
           <div>
-            <p className="eyebrow">Our specialist</p>
-            <h2>Meet Dr. Niyukty Arjal</h2>
-            <p className="section-lead">
+            <p className="mb-2.5 text-xs font-black uppercase tracking-[0.1em] text-[#E8177A]">Our specialist</p>
+            <h2 className={h2Class}>Meet Dr. Niyukty Arjal</h2>
+            <p className={leadClass}>
               Dr. Arjal is an MDS Periodontist and lead dentist at Gums &
               Giggles. Her specialist training in gum health supports many of
               the treatments patients need most, from deep cleaning and gum
               disease management to implants and restorative planning.
             </p>
-            <div className="hero-actions">
+            <div className={actionRowClass}>
               <ButtonLink href="/about-us">Learn about the clinic</ButtonLink>
             </div>
           </div>
@@ -77,4 +85,3 @@ export default function ServicesPage() {
     </>
   );
 }
-

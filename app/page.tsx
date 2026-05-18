@@ -6,12 +6,23 @@ import {
   CardsGrid,
   ClinicGallery,
   FAQList,
+  HeroHighlights,
   LocationSection,
   PageHero,
   SectionHeader,
   ServiceCard,
   StatStrip,
+  actionRowClass,
+  cardClass,
   clinic,
+  container,
+  h2Class,
+  imagePanelClass,
+  leadClass,
+  section,
+  sectionAlt,
+  sectionPink,
+  splitGridClass,
 } from "@/components/site";
 import { featuredServices } from "@/data/services";
 
@@ -25,11 +36,13 @@ export default function Home() {
         image="/clinic_photos/doctor_photo_with_a_child_patient.webp"
         imageAlt="Dr. Niyukty Arjal with a child patient at Gums and Giggles Dental Clinic"
       >
-        <ul className="hero-highlights">
-          <li>4.5+ rated by Kathmandu patients</li>
-          <li>MDS Periodontist-led diagnosis and treatment planning</li>
-          <li>Open Sunday to Friday, 10 AM to 7 PM</li>
-        </ul>
+        <HeroHighlights
+          items={[
+            "4.5+ rated by Kathmandu patients",
+            "MDS Periodontist-led diagnosis and treatment planning",
+            "Open Sunday to Friday, 10 AM to 7 PM",
+          ]}
+        />
       </PageHero>
 
       <StatStrip
@@ -41,29 +54,30 @@ export default function Home() {
         ]}
       />
 
-      <section className="section section-alt">
-        <div className="container">
+      <section className={sectionAlt}>
+        <div className={container}>
           <SectionHeader
             eyebrow="What we treat"
             title="Complete dental care in Kathmandu"
             lead="Choose a service to learn about symptoms, pricing, treatment steps, and aftercare."
             center
           />
-          <div className="services-grid">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {featuredServices.map((service) => (
               <ServiceCard service={service} key={service.slug} />
             ))}
           </div>
-          <div className="hero-actions" style={{ justifyContent: "center" }}>
+          <div className={`${actionRowClass} justify-center`}>
             <ButtonLink href="/services">View all services</ButtonLink>
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container about-grid">
-          <div className="doctor-photo">
+      <section className={section}>
+        <div className={`${container} ${splitGridClass}`}>
+          <div className={imagePanelClass}>
             <Image
+              className="object-cover"
               src="/clinic_photos/doctor_photo_with_a_adult_male_patient.webp"
               alt="Doctor consulting with an adult patient at Gums and Giggles"
               fill
@@ -96,10 +110,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-pink">
-        <div className="container doctor-grid">
-          <div className="doctor-photo">
+      <section className={sectionPink}>
+        <div className={`${container} grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]`}>
+          <div className={imagePanelClass}>
             <Image
+              className="object-cover"
               src="/clinic_photos/clinics_counter_image.webp"
               alt="Reception area at Gums and Giggles Dental Clinic"
               fill
@@ -107,27 +122,27 @@ export default function Home() {
             />
           </div>
           <div>
-            <p className="eyebrow">Meet your doctor</p>
-            <h2>Dr. Niyukty Arjal</h2>
-            <p className="section-lead">
+            <p className="mb-2.5 text-xs font-black uppercase tracking-[0.1em] text-[#E8177A]">Meet your doctor</p>
+            <h2 className={h2Class}>Dr. Niyukty Arjal</h2>
+            <p className={leadClass}>
               MDS Periodontist and lead dentist at Gums & Giggles Dental
               Clinic. Her approach is straightforward: honest advice, gentle
               treatment, and outcomes designed to last.
             </p>
-            <ul className="credential-list">
-              <li>MDS in Periodontics</li>
-              <li>Expertise in gum care, implants, and restorative planning</li>
-              <li>Welcoming to families, professionals, tourists, and expats</li>
+            <ul className="mt-5 grid gap-2.5">
+              <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">MDS in Periodontics</li>
+              <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">Expertise in gum care, implants, and restorative planning</li>
+              <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">Welcoming to families, professionals, tourists, and expats</li>
             </ul>
-            <div className="hero-actions">
+            <div className={actionRowClass}>
               <ButtonLink href="/about-us">About the clinic</ButtonLink>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
+      <section className={section}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Our clinic"
             title="A clinic built for your comfort"
@@ -138,34 +153,36 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container">
+      <section className={sectionAlt}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Patient reviews"
             title="What our patients say"
             lead="Patients consistently mention the caring team, clean clinic, and comfortable treatment experience."
             center
           />
-          <div className="reviews-grid">
-            <article className="review-card review-score">
-              <strong>4.5+</strong>
-              <div className="stars">★★★★★</div>
-              <p>Google rating from local patients and families.</p>
-              <Link className="text-link" href={clinic.mapsHref}>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-[0.7fr_1fr_1fr]">
+            <article className={`${cardClass} p-6 text-center`}>
+              <strong className="block font-sans text-6xl font-black leading-none text-zinc-950">
+                4.5+
+              </strong>
+              <div className="my-2 tracking-widest text-[#c69214]">★★★★★</div>
+              <p className="text-zinc-600">Google rating from local patients and families.</p>
+              <Link className="mt-3 inline-flex font-sans font-black text-[#E8177A]" href={clinic.mapsHref}>
                 Read on Google Maps
               </Link>
             </article>
-            <article className="review-card">
-              <h3>Professional and helpful</h3>
-              <p>
+            <article className={`${cardClass} p-6`}>
+              <h3 className="mb-2 font-sans text-lg font-black text-zinc-950">Professional and helpful</h3>
+              <p className="leading-7 text-zinc-600">
                 Diagnosis, prognosis and treatment by Dr. Niyukty is
                 commendable. The professionalism of the entire team,
                 cleanliness and ambience of the clinic impressive.
               </p>
             </article>
-            <article className="review-card">
-              <h3>Kind and gentle</h3>
-              <p>
+            <article className={`${cardClass} p-6`}>
+              <h3 className="mb-2 font-sans text-lg font-black text-zinc-950">Kind and gentle</h3>
+              <p className="leading-7 text-zinc-600">
                 I went for teeth cleaning. Dr. Niyukty Arjal was very kind and
                 gentle. The clinic was clean and nice. My teeth feel fresh and
                 shiny now.
@@ -175,8 +192,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container compact-section">
+      <section className={section}>
+        <div className={`${container} max-w-4xl`}>
           <SectionHeader
             eyebrow="Common questions"
             title="Frequently asked questions"

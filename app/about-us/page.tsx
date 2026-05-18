@@ -9,6 +9,15 @@ import {
   PageHero,
   SectionHeader,
   StatStrip,
+  actionRowClass,
+  container,
+  h2Class,
+  imagePanelClass,
+  leadClass,
+  section,
+  sectionAlt,
+  sectionPink,
+  splitGridClass,
 } from "@/components/site";
 
 export const metadata: Metadata = {
@@ -37,15 +46,15 @@ export default function AboutPage() {
         ]}
       />
 
-      <section className="section">
-        <div className="container about-grid">
+      <section className={section}>
+        <div className={`${container} ${splitGridClass}`}>
           <div>
             <SectionHeader
               eyebrow="Who we are"
               title="A modern dental clinic built around trust, comfort, and specialist care"
               lead="We serve families, children, working professionals, and visitors looking for thoughtful dental care in a friendly setting."
             />
-            <div className="rich-copy">
+            <div className="grid max-w-3xl gap-4 leading-8 text-zinc-600">
               <p>
                 At Gums & Giggles Dental Clinic, we believe going to the
                 dentist should feel less stressful and more supportive. Our
@@ -78,17 +87,18 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section-pink">
-        <div className="container">
+      <section className={sectionPink}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Meet the team"
             title="The people behind Gums & Giggles"
             lead="Our clinic combines specialist expertise with a genuinely approachable style of care."
             center
           />
-          <div className="doctor-grid">
-            <div className="doctor-photo">
+          <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]">
+            <div className={imagePanelClass}>
               <Image
+                className="object-cover"
                 src="/clinic_photos/doctor_photo_with_a_adult_male_patient.webp"
                 alt="Dr. Niyukty Arjal consulting with an adult patient"
                 fill
@@ -96,19 +106,19 @@ export default function AboutPage() {
               />
             </div>
             <div>
-              <h2>Dr. Niyukty Arjal</h2>
-              <p className="section-lead">
+              <h2 className={h2Class}>Dr. Niyukty Arjal</h2>
+              <p className={leadClass}>
               MDS Periodontist and lead doctor. Dr. Arjal&apos;s specialist
                 background is a key strength for patients seeking gum care,
                 implants, restorative planning, and long-term oral wellness in
                 Kathmandu.
               </p>
-              <ul className="credential-list">
-                <li>MDS in Periodontics</li>
-                <li>Special interest in gum health and implant foundations</li>
-                <li>Calm, clear consultations for children and adults</li>
+              <ul className="mt-5 grid gap-2.5">
+                <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">MDS in Periodontics</li>
+                <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">Special interest in gum health and implant foundations</li>
+                <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">Calm, clear consultations for children and adults</li>
               </ul>
-              <div className="hero-actions">
+              <div className={actionRowClass}>
                 <ButtonLink href="/services">Explore services</ButtonLink>
               </div>
             </div>
@@ -116,8 +126,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
+      <section className={section}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Our approach"
             title="Care that feels personal, not rushed"
@@ -143,8 +153,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container">
+      <section className={sectionAlt}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Inside our clinic"
             title="A bright and comfortable space on Dhobidhara Marg"
@@ -155,38 +165,40 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
+      <section className={section}>
+        <div className={container}>
           <SectionHeader
             eyebrow="For every smile"
             title="Welcoming children, adults, and families"
             center
           />
-          <div className="showcase-grid">
-            <figure className="showcase-card">
-              <div>
+          <div className="grid gap-5 md:grid-cols-2">
+            <figure className="overflow-hidden rounded-[1.25rem] border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(17,17,17,0.06)]">
+              <div className="relative min-h-64 bg-pink-50 md:min-h-96">
                 <Image
+                  className="object-cover"
                   src="/clinic_photos/doctor_photo_with_a_child_patient.webp"
                   alt="Child-friendly dental care at Gums and Giggles"
                   fill
                   sizes="(max-width: 900px) 100vw, 50vw"
                 />
               </div>
-              <figcaption>
+              <figcaption className="p-5 font-semibold leading-7 text-zinc-600">
                 Gentle care that helps younger patients feel safe and
                 supported.
               </figcaption>
             </figure>
-            <figure className="showcase-card">
-              <div>
+            <figure className="overflow-hidden rounded-[1.25rem] border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(17,17,17,0.06)]">
+              <div className="relative min-h-64 bg-pink-50 md:min-h-96">
                 <Image
+                  className="object-cover"
                   src="/clinic_photos/clinics_counter_image.webp"
                   alt="Reception area at Gums and Giggles Dental Clinic"
                   fill
                   sizes="(max-width: 900px) 100vw, 50vw"
                 />
               </div>
-              <figcaption>
+              <figcaption className="p-5 font-semibold leading-7 text-zinc-600">
                 Professional care for busy adults who want clear treatment
                 planning.
               </figcaption>

@@ -1,7 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { services, type CardItem, type FAQItem, type Service } from "@/data/services";
+import {
+  services,
+  type CardItem,
+  type FAQItem,
+  type Service,
+} from "@/data/services";
 
 export const clinic = {
   phone: "+977 984-1243430",
@@ -14,6 +19,29 @@ export const clinic = {
   mapsHref: "https://maps.app.goo.gl/ff5JWHjBLUdsBLij8",
 };
 
+export const container = "mx-auto w-full max-w-6xl px-4 sm:px-5";
+export const section = "py-14 md:py-20";
+export const sectionAlt = `${section} bg-stone-50`;
+export const sectionPink = `${section} bg-pink-50`;
+export const eyebrowClass =
+  "mb-2.5 text-xs font-black uppercase tracking-[0.1em] text-[#E8177A]";
+export const h2Class =
+  "font-sans text-3xl font-black leading-tight text-zinc-950 md:text-4xl";
+export const leadClass = "mt-3 text-base leading-8 text-zinc-600 md:text-lg";
+export const actionRowClass = "mt-7 flex flex-wrap gap-3";
+export const splitGridClass =
+  "grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.82fr)]";
+export const imagePanelClass =
+  "relative min-h-80 overflow-hidden rounded-[1.75rem] bg-pink-50 shadow-[0_18px_50px_rgba(17,17,17,0.09)] md:min-h-[420px]";
+export const cardClass =
+  "rounded-[1.25rem] border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(17,17,17,0.06)]";
+
+function externalHref(href: string) {
+  return (
+    href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:")
+  );
+}
+
 export function ButtonLink({
   href,
   children,
@@ -23,14 +51,16 @@ export function ButtonLink({
   children: ReactNode;
   variant?: "primary" | "secondary" | "light";
 }) {
-  const className =
-    variant === "light"
-      ? "btn btn-light"
-      : variant === "secondary"
-        ? "btn btn-secondary"
-        : "btn btn-primary";
+  const className = [
+    "inline-flex min-h-11 items-center justify-center rounded-full px-5 py-3 text-sm font-black leading-none transition hover:-translate-y-0.5",
+    variant === "primary"
+      ? "bg-[#E8177A] text-white shadow-[0_12px_28px_rgba(232,23,122,0.22)] hover:bg-[#c4115f]"
+      : variant === "light"
+        ? "bg-white text-[#E8177A] hover:bg-pink-50"
+        : "border-2 border-pink-200 bg-white text-[#E8177A] hover:border-[#E8177A]",
+  ].join(" ");
 
-  if (href.startsWith("http") || href.startsWith("tel:") || href.startsWith("mailto:")) {
+  if (externalHref(href)) {
     return (
       <a className={className} href={href}>
         {children}
@@ -45,44 +75,83 @@ export function ButtonLink({
   );
 }
 
+function Brand({ footer = false }: { footer?: boolean }) {
+  return (
+    <Link
+      className="inline-flex min-w-0 items-center gap-3"
+      href="/"
+      aria-label="Gums and Giggles home"
+    >
+      <Image
+        className="h-11 w-11 rounded-2xl bg-white object-contain shadow-[0_10px_26px_rgba(232,23,122,0.18)]"
+        src="/logo_.png"
+        alt=""
+        width={44}
+        height={44}
+        priority={!footer}
+      />
+      <span>
+        <strong
+          className={`block font-sans text-lg font-black leading-tight ${
+            footer ? "text-white" : "text-zinc-950"
+          }`}
+        >
+          Gums &amp; Giggles
+        </strong>
+        <small
+          className={`mt-0.5 block text-xs leading-tight max-sm:hidden ${
+            footer ? "text-white/65" : "text-zinc-500"
+          }`}
+        >
+          {footer ? "Khulera Hasau, Majja Ley Hassau" : "Dental Clinic Kathmandu"}
+        </small>
+      </span>
+    </Link>
+  );
+}
+
 export function Header() {
   return (
-    <header className="site-header">
-      <div className="topbar">
-        <div className="container topbar-inner">
+    <header className="sticky top-0 z-20 border-b border-pink-100 bg-white/90 backdrop-blur-xl">
+      <div className="hidden bg-zinc-950 text-sm text-white/75 sm:block">
+        <div className={`${container} flex min-h-8 items-center justify-between gap-5`}>
           <div>
-            <a href={clinic.phoneHref}>{clinic.phone}</a>
-            <span className="topbar-separator">/</span>
+            <a className="hover:text-[#E8177A]" href={clinic.phoneHref}>
+              {clinic.phone}
+            </a>
+            <span className="mx-2.5 opacity-40">/</span>
             <span>{clinic.hours}</span>
           </div>
-          <div className="topbar-right">
+          <div className="hidden gap-5 lg:flex">
             <span>{clinic.address}</span>
-            <a href={clinic.emailHref}>{clinic.email}</a>
+            <a className="hover:text-[#E8177A]" href={clinic.emailHref}>
+              {clinic.email}
+            </a>
           </div>
         </div>
       </div>
-      <div className="container nav-wrap">
-        <Link className="brand" href="/" aria-label="Gums and Giggles home">
-          <Image
-            className="brand-mark"
-            src="/logo_.png"
-            alt=""
-            width={44}
-            height={44}
-            priority
-          />
-          <span>
-            <strong>Gums &amp; Giggles</strong>
-            <small>Dental Clinic Kathmandu</small>
-          </span>
-        </Link>
-        <nav className="main-nav" aria-label="Main navigation">
-          <Link href="/">Home</Link>
-          <Link href="/about-us">About</Link>
-          <Link href="/services">Services</Link>
-          <a href={clinic.phoneHref}>Call</a>
+      <div className={`${container} flex min-h-[4.5rem] items-center justify-between gap-5`}>
+        <Brand />
+        <nav
+          className="flex items-center gap-3 text-sm font-black text-zinc-800 sm:gap-5"
+          aria-label="Main navigation"
+        >
+          <Link className="hover:text-[#E8177A]" href="/">
+            Home
+          </Link>
+          <Link className="hidden hover:text-[#E8177A] sm:inline" href="/about-us">
+            About
+          </Link>
+          <Link className="hover:text-[#E8177A]" href="/services">
+            Services
+          </Link>
+          <a className="hover:text-[#E8177A]" href={clinic.phoneHref}>
+            Call
+          </a>
         </nav>
-        <ButtonLink href={clinic.appointmentHref}>Book Appointment</ButtonLink>
+        <div className="hidden lg:block">
+          <ButtonLink href={clinic.appointmentHref}>Book Appointment</ButtonLink>
+        </div>
       </div>
     </header>
   );
@@ -90,46 +159,43 @@ export function Header() {
 
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="container footer-grid">
+    <footer className="bg-zinc-950 py-14 text-white/75">
+      <div className={`${container} grid gap-9 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]`}>
         <div>
-          <Link className="brand footer-brand" href="/">
-            <Image
-              className="brand-mark"
-              src="/logo_.png"
-              alt=""
-              width={44}
-              height={44}
-            />
-            <span>
-              <strong>Gums &amp; Giggles</strong>
-              <small>Khulera Hasau, Majja Ley Hassau</small>
-            </span>
-          </Link>
-          <p>
+          <Brand footer />
+          <p className="mt-5 max-w-md">
             Specialist-led dental care in Kathmandu, built around clear
             communication, comfort, and long-term oral health.
           </p>
         </div>
         <div>
-          <h3>Services</h3>
-          <ul>
+          <h3 className="mb-3 font-sans font-black text-white">Services</h3>
+          <ul className="grid gap-2">
             {services.slice(0, 6).map((service) => (
               <li key={service.slug}>
-                <Link href={`/services/${service.slug}`}>{service.shortTitle}</Link>
+                <Link
+                  className="hover:text-[#E8177A]"
+                  href={`/services/${service.slug}`}
+                >
+                  {service.shortTitle}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <h3>Visit</h3>
-          <ul>
+          <h3 className="mb-3 font-sans font-black text-white">Visit</h3>
+          <ul className="grid gap-2">
             <li>{clinic.address}</li>
             <li>
-              <a href={clinic.phoneHref}>{clinic.phone}</a>
+              <a className="hover:text-[#E8177A]" href={clinic.phoneHref}>
+                {clinic.phone}
+              </a>
             </li>
             <li>
-              <a href={clinic.emailHref}>{clinic.email}</a>
+              <a className="hover:text-[#E8177A]" href={clinic.emailHref}>
+                {clinic.email}
+              </a>
             </li>
             <li>{clinic.hours}</li>
           </ul>
@@ -151,10 +217,12 @@ export function SectionHeader({
   center?: boolean;
 }) {
   return (
-    <div className={center ? "section-header center" : "section-header"}>
-      {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-      <h2>{title}</h2>
-      {lead ? <p className="section-lead">{lead}</p> : null}
+    <div
+      className={`mb-9 max-w-3xl ${center ? "mx-auto text-center" : ""}`}
+    >
+      {eyebrow ? <p className={eyebrowClass}>{eyebrow}</p> : null}
+      <h2 className={h2Class}>{title}</h2>
+      {lead ? <p className={leadClass}>{lead}</p> : null}
     </div>
   );
 }
@@ -175,13 +243,17 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="page-hero">
-      <div className="container hero-grid">
-        <div className="hero-copy">
-          <p className="eyebrow">{eyebrow}</p>
-          <h1>{title}</h1>
-          <p className="hero-lead">{lead}</p>
-          <div className="hero-actions">
+    <section className="overflow-hidden bg-[linear-gradient(115deg,rgba(255,255,255,0.94),rgba(255,240,247,0.84)),url('/clinic_photos/clinics_building_image_from_outside.webp')] bg-cover bg-center py-9 md:py-16">
+      <div className={`${container} grid items-center gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.9fr)]`}>
+        <div className="rounded-[1.875rem] border border-white/70 bg-white/90 p-6 shadow-[0_28px_70px_rgba(96,30,56,0.12)] backdrop-blur-xl md:p-9">
+          <p className={eyebrowClass}>{eyebrow}</p>
+          <h1 className="max-w-3xl font-sans text-4xl font-black leading-tight text-zinc-950 md:text-6xl">
+            {title}
+          </h1>
+          <p className="mt-5 text-base leading-8 text-zinc-600 md:text-lg">
+            {lead}
+          </p>
+          <div className={actionRowClass}>
             <ButtonLink href={clinic.appointmentHref}>Book a Consultation</ButtonLink>
             <ButtonLink href={clinic.phoneHref} variant="secondary">
               Call {clinic.phone}
@@ -189,11 +261,30 @@ export function PageHero({
           </div>
           {children}
         </div>
-        <div className="hero-media">
-          <Image src={image} alt={imageAlt} fill priority sizes="(max-width: 900px) 100vw, 48vw" />
+        <div className="relative min-h-80 overflow-hidden rounded-[2rem] border-8 border-white/90 bg-pink-50 shadow-[0_18px_50px_rgba(17,17,17,0.09)] md:min-h-[520px]">
+          <Image
+            className="object-cover"
+            src={image}
+            alt={imageAlt}
+            fill
+            priority
+            sizes="(max-width: 900px) 100vw, 48vw"
+          />
         </div>
       </div>
     </section>
+  );
+}
+
+export function HeroHighlights({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-7 grid gap-2.5">
+      {items.map((item) => (
+        <li className="relative pl-7 text-zinc-800 before:absolute before:left-0 before:text-[#E8177A] before:content-['✓']" key={item}>
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -206,12 +297,14 @@ export function StatStrip({
   }[];
 }) {
   return (
-    <section className="stat-strip" aria-label="Clinic highlights">
-      <div className="container stat-grid">
+    <section className="bg-[#E8177A] text-white" aria-label="Clinic highlights">
+      <div className={`${container} grid gap-5 py-7 text-center sm:grid-cols-2 lg:grid-cols-4`}>
         {stats.map((stat) => (
-          <div className="stat" key={`${stat.value}-${stat.label}`}>
-            <strong>{stat.value}</strong>
-            <span>{stat.label}</span>
+          <div key={`${stat.value}-${stat.label}`}>
+            <strong className="block font-sans text-3xl font-black leading-none md:text-4xl">
+              {stat.value}
+            </strong>
+            <span className="mt-1 block text-sm text-white/85">{stat.label}</span>
           </div>
         ))}
       </div>
@@ -221,15 +314,22 @@ export function StatStrip({
 
 export function ServiceCard({ service }: { service: Service }) {
   return (
-    <article className="service-card">
-      <div className="service-icon" aria-hidden="true">
+    <article className={`${cardClass} grid grid-cols-[3.375rem_minmax(0,1fr)] gap-4 p-5 md:p-6`}>
+      <div className="grid h-14 w-14 place-items-center rounded-2xl bg-pink-50 font-sans text-2xl font-black text-[#E8177A]">
         {service.navTitle.slice(0, 1)}
       </div>
       <div>
-        <h3>{service.shortTitle}</h3>
-        <p>{service.summary}</p>
-        <p className="service-price">{service.price}</p>
-        <Link href={`/services/${service.slug}`} className="text-link">
+        <h3 className="mb-2 font-sans text-lg font-black leading-snug text-zinc-950">
+          {service.shortTitle}
+        </h3>
+        <p className="text-sm leading-6 text-zinc-600">{service.summary}</p>
+        <p className="mt-2.5 text-sm font-black text-[#c69214]">
+          {service.price}
+        </p>
+        <Link
+          href={`/services/${service.slug}`}
+          className="mt-3 inline-flex font-sans text-sm font-black text-[#E8177A] hover:text-[#c4115f]"
+        >
           Learn more
         </Link>
       </div>
@@ -239,11 +339,13 @@ export function ServiceCard({ service }: { service: Service }) {
 
 export function CardsGrid({ items }: { items: CardItem[] }) {
   return (
-    <div className="cards-grid">
+    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
-        <article className="info-card" key={item.title}>
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
+        <article className={`${cardClass} p-6`} key={item.title}>
+          <h3 className="mb-2 font-sans text-lg font-black leading-snug text-zinc-950">
+            {item.title}
+          </h3>
+          <p className="leading-7 text-zinc-600">{item.text}</p>
         </article>
       ))}
     </div>
@@ -252,12 +354,16 @@ export function CardsGrid({ items }: { items: CardItem[] }) {
 
 export function ProcessSteps({ steps }: { steps: CardItem[] }) {
   return (
-    <div className="process-grid">
+    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
       {steps.map((step, index) => (
-        <article className="process-step" key={step.title}>
-          <span>{String(index + 1).padStart(2, "0")}</span>
-          <h3>{step.title}</h3>
-          <p>{step.text}</p>
+        <article className={`${cardClass} p-6`} key={step.title}>
+          <span className="mb-4 inline-flex font-sans text-sm font-black text-[#E8177A]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3 className="mb-2 font-sans text-lg font-black leading-snug text-zinc-950">
+            {step.title}
+          </h3>
+          <p className="leading-7 text-zinc-600">{step.text}</p>
         </article>
       ))}
     </div>
@@ -266,11 +372,16 @@ export function ProcessSteps({ steps }: { steps: CardItem[] }) {
 
 export function FAQList({ items }: { items: FAQItem[] }) {
   return (
-    <div className="faq-list">
+    <div className="grid gap-3">
       {items.map((item) => (
-        <details key={item.question} className="faq-item">
-          <summary>{item.question}</summary>
-          <p>{item.answer}</p>
+        <details
+          key={item.question}
+          className={`${cardClass} overflow-hidden open:border-pink-200`}
+        >
+          <summary className="cursor-pointer px-5 py-4 font-sans font-black text-zinc-950">
+            {item.question}
+          </summary>
+          <p className="px-5 pb-5 leading-7 text-zinc-600">{item.answer}</p>
         </details>
       ))}
     </div>
@@ -297,11 +408,22 @@ export function ClinicGallery() {
   ];
 
   return (
-    <div className="gallery-grid">
+    <div className="grid gap-5 md:grid-cols-3">
       {images.map((image) => (
-        <figure className="gallery-card" key={image.src}>
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 100vw, 33vw" />
-          <figcaption>{image.caption}</figcaption>
+        <figure
+          className="relative min-h-72 overflow-hidden rounded-[1.25rem] bg-pink-50 shadow-[0_8px_24px_rgba(17,17,17,0.06)]"
+          key={image.src}
+        >
+          <Image
+            className="object-cover transition duration-500 hover:scale-105"
+            src={image.src}
+            alt={image.alt}
+            fill
+            sizes="(max-width: 900px) 100vw, 33vw"
+          />
+          <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-zinc-950/75 to-transparent px-5 pb-4 pt-12 font-sans font-black text-white">
+            {image.caption}
+          </figcaption>
         </figure>
       ))}
     </div>
@@ -310,45 +432,51 @@ export function ClinicGallery() {
 
 export function LocationSection() {
   return (
-    <section className="section section-alt">
-      <div className="container">
+    <section className={sectionAlt}>
+      <div className={container}>
         <SectionHeader
           eyebrow="Find us"
           title="Visit our clinic in Kathmandu"
           lead="Conveniently located on Dhobidhara Marg, minutes from Lazimpat, Maharajgunj, Naxal, Baluwatar, and Thamel."
           center
         />
-        <div className="location-grid">
-          <div className="contact-panel">
-            <h3>Clinic information</h3>
-            <dl>
-              <div>
-                <dt>Address</dt>
-                <dd>{clinic.address}</dd>
-              </div>
-              <div>
-                <dt>Phone</dt>
-                <dd>
-                  <a href={clinic.phoneHref}>{clinic.phone}</a>
-                </dd>
-              </div>
-              <div>
-                <dt>Email</dt>
-                <dd>
-                  <a href={clinic.emailHref}>{clinic.email}</a>
-                </dd>
-              </div>
-              <div>
-                <dt>Hours</dt>
-                <dd>{clinic.hours}</dd>
-              </div>
+        <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1fr)]">
+          <div className={`${cardClass} p-7`}>
+            <h3 className="font-sans text-xl font-black text-zinc-950">
+              Clinic information
+            </h3>
+            <dl className="my-5 grid gap-4">
+              {[
+                ["Address", clinic.address],
+                ["Phone", clinic.phone],
+                ["Email", clinic.email],
+                ["Hours", clinic.hours],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <dt className="font-sans font-black text-zinc-950">{label}</dt>
+                  <dd className="mt-1 text-zinc-600">
+                    {label === "Phone" ? (
+                      <a className="hover:text-[#E8177A]" href={clinic.phoneHref}>
+                        {value}
+                      </a>
+                    ) : label === "Email" ? (
+                      <a className="hover:text-[#E8177A]" href={clinic.emailHref}>
+                        {value}
+                      </a>
+                    ) : (
+                      value
+                    )}
+                  </dd>
+                </div>
+              ))}
             </dl>
             <ButtonLink href={clinic.mapsHref} variant="secondary">
               Open Google Maps
             </ButtonLink>
           </div>
-          <div className="map-frame">
+          <div className="overflow-hidden rounded-[1.25rem] bg-pink-50 shadow-[0_8px_24px_rgba(17,17,17,0.06)]">
             <iframe
+              className="block min-h-[430px] w-full border-0"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.2698574990654!2d85.32186351100181!3d27.708953125321475!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19f184587513%3A0x2906ce17aa1ffb54!2sGums%20%26%20Giggles%20Dental%20Clinic!5e0!3m2!1sen!2snp!4v1774260384407!5m2!1sen!2snp"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -369,11 +497,15 @@ export function CTASection({
   text: string;
 }) {
   return (
-    <section className="cta-section">
-      <div className="container cta-inner">
-        <h2>{title}</h2>
-        <p>{text}</p>
-        <div className="hero-actions">
+    <section className="bg-[#E8177A] py-16 text-white md:py-20">
+      <div className={`${container} text-center`}>
+        <h2 className="font-sans text-3xl font-black leading-tight text-white md:text-4xl">
+          {title}
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-8 text-white/90 md:text-lg">
+          {text}
+        </p>
+        <div className="mt-7 flex flex-wrap justify-center gap-3">
           <ButtonLink href={clinic.appointmentHref} variant="light">
             Book an Appointment
           </ButtonLink>
@@ -392,16 +524,36 @@ export function ImageShowcase({
   images: NonNullable<Service["extraImages"]>;
 }) {
   return (
-    <div className="showcase-grid">
+    <div className="grid gap-5 md:grid-cols-2">
       {images.map((image) => (
-        <figure className="showcase-card" key={image.src}>
-          <div>
-            <Image src={image.src} alt={image.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
+        <figure className={`${cardClass} overflow-hidden`} key={image.src}>
+          <div className="relative min-h-64 bg-pink-50 md:min-h-96">
+            <Image
+              className="object-cover"
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 900px) 100vw, 50vw"
+            />
           </div>
-          <figcaption>{image.caption}</figcaption>
+          <figcaption className="p-5 font-semibold leading-7 text-zinc-600">
+            {image.caption}
+          </figcaption>
         </figure>
       ))}
     </div>
+  );
+}
+
+export function CheckGrid({ items }: { items: string[] }) {
+  return (
+    <ul className="grid gap-3 md:grid-cols-2">
+      {items.map((item) => (
+        <li className="relative pl-7 text-zinc-800 before:absolute before:left-0 before:text-[#E8177A] before:content-['✓']" key={item}>
+          {item}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -415,38 +567,38 @@ export function ServicePage({ service }: { service: Service }) {
         image={service.heroImage}
         imageAlt={service.imageAlt}
       >
-        <ul className="hero-highlights">
-          {service.highlights.map((highlight) => (
-            <li key={highlight}>{highlight}</li>
-          ))}
-        </ul>
+        <HeroHighlights items={service.highlights} />
       </PageHero>
 
-      <section className="section">
-        <div className="container split-grid">
+      <section className={section}>
+        <div className={`${container} ${splitGridClass}`}>
           <div>
             <SectionHeader eyebrow="Overview" title={`About ${service.shortTitle}`} />
-            <div className="rich-copy">
+            <div className="grid max-w-3xl gap-4 leading-8 text-zinc-600">
               {service.overview.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>
-          <aside className="price-panel">
-            <p className="eyebrow">Starting point</p>
-            <h2>{service.price}</h2>
-            <p>
+          <aside className={`${cardClass} p-7`}>
+            <p className={eyebrowClass}>Starting point</p>
+            <h2 className="mb-3 font-sans text-2xl font-black leading-tight text-[#c69214]">
+              {service.price}
+            </h2>
+            <p className="leading-7 text-zinc-600">
               Final pricing is confirmed after examination, X-rays where needed,
               and a treatment plan.
             </p>
-            <ButtonLink href={clinic.appointmentHref}>Get a clear estimate</ButtonLink>
+            <div className="mt-6">
+              <ButtonLink href={clinic.appointmentHref}>Get a clear estimate</ButtonLink>
+            </div>
           </aside>
         </div>
       </section>
 
       {service.options?.length ? (
-        <section className="section section-alt">
-          <div className="container">
+        <section className={sectionAlt}>
+          <div className={container}>
             <SectionHeader
               eyebrow="Treatment details"
               title={service.optionsTitle ?? "Treatment options"}
@@ -459,24 +611,20 @@ export function ServicePage({ service }: { service: Service }) {
       ) : null}
 
       {service.signs?.length ? (
-        <section className="section">
-          <div className="container compact-section">
+        <section className={section}>
+          <div className={`${container} max-w-4xl`}>
             <SectionHeader
               eyebrow="Know the signs"
               title={service.signsTitle ?? "When to book a visit"}
               center
             />
-            <ul className="check-grid">
-              {service.signs.map((sign) => (
-                <li key={sign}>{sign}</li>
-              ))}
-            </ul>
+            <CheckGrid items={service.signs} />
           </div>
         </section>
       ) : null}
 
-      <section className="section section-pink">
-        <div className="container">
+      <section className={sectionPink}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Patient journey"
             title="What to expect"
@@ -487,8 +635,8 @@ export function ServicePage({ service }: { service: Service }) {
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
+      <section className={section}>
+        <div className={container}>
           <SectionHeader
             eyebrow="Why patients choose us"
             title={`Why choose Gums & Giggles for ${service.shortTitle.toLowerCase()}?`}
@@ -499,8 +647,8 @@ export function ServicePage({ service }: { service: Service }) {
       </section>
 
       {service.care?.length ? (
-        <section className="section section-alt">
-          <div className="container">
+        <section className={sectionAlt}>
+          <div className={container}>
             <SectionHeader eyebrow="Aftercare" title={service.careTitle ?? "Care tips"} center />
             <CardsGrid items={service.care} />
           </div>
@@ -508,15 +656,15 @@ export function ServicePage({ service }: { service: Service }) {
       ) : null}
 
       {service.extraImages?.length ? (
-        <section className="section">
-          <div className="container">
+        <section className={section}>
+          <div className={container}>
             <ImageShowcase images={service.extraImages} />
           </div>
         </section>
       ) : null}
 
-      <section className="section section-alt">
-        <div className="container compact-section">
+      <section className={sectionAlt}>
+        <div className={`${container} max-w-4xl`}>
           <SectionHeader
             eyebrow="Common questions"
             title={`FAQs about ${service.shortTitle}`}
