@@ -131,17 +131,12 @@ h3 {
 }
 
 .brand-mark {
-  display: grid;
   width: 44px;
   height: 44px;
-  place-items: center;
   border-radius: 14px;
-  background: var(--pink);
-  color: white;
-  font-family: Nunito, "Segoe UI", Arial, sans-serif;
-  font-size: 25px;
-  font-weight: 900;
-  box-shadow: 0 10px 26px rgba(232, 23, 122, 0.28);
+  object-fit: contain;
+  background: white;
+  box-shadow: 0 10px 26px rgba(232, 23, 122, 0.18);
 }
 
 .brand strong,
@@ -883,4 +878,3 @@ h3 {
     min-height: 260px;
   }
 }
-

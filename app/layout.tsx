@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   },
   description:
     "Specialist-led dental clinic in Kathmandu offering gum care, implants, braces, root canal treatment, teeth cleaning, wisdom tooth removal, and crowns.",
+  icons: {
+    icon: "/logo_.png",
+    shortcut: "/logo_.png",
+    apple: "/logo_.png",
+  },
 };
 
 export default function RootLayout({
@@ -26,4 +31,3 @@ export default function RootLayout({
     </html>
   );
 }
-

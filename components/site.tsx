@@ -63,7 +63,14 @@ export function Header() {
       </div>
       <div className="container nav-wrap">
         <Link className="brand" href="/" aria-label="Gums and Giggles home">
-          <span className="brand-mark">G</span>
+          <Image
+            className="brand-mark"
+            src="/logo_.png"
+            alt=""
+            width={44}
+            height={44}
+            priority
+          />
           <span>
             <strong>Gums &amp; Giggles</strong>
             <small>Dental Clinic Kathmandu</small>
@@ -87,7 +94,13 @@ export function Footer() {
       <div className="container footer-grid">
         <div>
           <Link className="brand footer-brand" href="/">
-            <span className="brand-mark">G</span>
+            <Image
+              className="brand-mark"
+              src="/logo_.png"
+              alt=""
+              width={44}
+              height={44}
+            />
             <span>
               <strong>Gums &amp; Giggles</strong>
               <small>Khulera Hasau, Majja Ley Hassau</small>
@@ -518,4 +531,3 @@ export function ServicePage({ service }: { service: Service }) {
     </>
   );
 }
-
