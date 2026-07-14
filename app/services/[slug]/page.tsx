@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ServicePage } from "@/components/site";
+import { ServicePage } from "@/components";
 import { getServiceBySlug, services } from "@/data/services";
 
 export function generateStaticParams() {
@@ -42,4 +42,3 @@ export default async function Page({
 
   return <ServicePage service={service} />;
 }
-

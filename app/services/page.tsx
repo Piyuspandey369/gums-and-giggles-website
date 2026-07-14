@@ -14,7 +14,7 @@ import {
   leadClass,
   section,
   sectionPink,
-} from "@/components/site";
+} from "@/components";
 import { services } from "@/data/services";
 
 export const metadata: Metadata = {

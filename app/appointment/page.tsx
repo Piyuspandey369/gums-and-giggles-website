@@ -12,7 +12,7 @@ import {
   leadClass,
   section,
   splitGridClass,
-} from "@/components/site";
+} from "@/components";
 
 export const metadata: Metadata = {
   title: "Book an Appointment",

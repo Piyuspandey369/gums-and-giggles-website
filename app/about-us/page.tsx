@@ -18,7 +18,7 @@ import {
   sectionAlt,
   sectionPink,
   splitGridClass,
-} from "@/components/site";
+} from "@/components";
 
 export const metadata: Metadata = {
   title: "About Our Dental Clinic in Kathmandu",
