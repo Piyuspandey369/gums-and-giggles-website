@@ -58,6 +58,7 @@ export function HomeHero() {
       lead="Gums & Giggles is a modern dental clinic on Dhobidhara Marg, led by MDS Periodontist Dr. Niyukty Arjal. From routine cleaning to braces, implants, crowns, root canal treatment, and gum care, your treatment is planned clearly from the start."
       image="/clinic_photos/doctor_photo_with_a_child_patient.webp"
       imageAlt="Dr. Niyukty Arjal with a child patient at Gums and Giggles Dental Clinic"
+      backgroundClassName="bg-[linear-gradient(115deg,rgba(255,255,255,0.52),rgba(255,240,247,0.42)),url('/clinic_photos/clinics_building_image_from_outside.webp')]"
     >
       <HeroHighlights
         items={[
