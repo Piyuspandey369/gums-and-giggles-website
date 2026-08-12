@@ -70,7 +70,7 @@ export function Header() {
           </a>
         </nav>
         <div className="hidden lg:block">
-          <ButtonLink href={clinic.appointmentHref}>Book Appointment</ButtonLink>
+          <ButtonLink href={clinic.appointmentHref}>Book Appointments</ButtonLink>
         </div>
       </div>
     </header>
