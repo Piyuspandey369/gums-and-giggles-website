@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { services } from "@/data/services";
+import { gumTopics } from "@/data/gum-topics";
 import { clinic, container } from "../constants";
 
 function FooterBrand() {
@@ -32,13 +33,33 @@ function FooterBrand() {
 export function Footer() {
   return (
     <footer className="bg-zinc-950 py-14 text-white/75">
-      <div className={`${container} grid gap-9 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]`}>
+      <div className={`${container} grid gap-9 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr]`}>
         <div>
           <FooterBrand />
           <p className="mt-5 max-w-md">
             Specialist-led dental care in Kathmandu, built around clear
             communication, comfort, and long-term oral health.
           </p>
+        </div>
+        <div>
+          <h3 className="mb-3 font-sans font-black text-white">Gum care</h3>
+          <ul className="grid gap-2">
+            <li>
+              <Link className="hover:text-[#E8177A]" href="/gum-care">
+                All gum treatments
+              </Link>
+            </li>
+            {gumTopics.map((topic) => (
+              <li key={topic.slug}>
+                <Link
+                  className="hover:text-[#E8177A]"
+                  href={`/gum-care/${topic.slug}`}
+                >
+                  {topic.shortTitle}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <h3 className="mb-3 font-sans font-black text-white">Services</h3>
@@ -70,6 +91,24 @@ export function Footer() {
               </a>
             </li>
             <li>{clinic.hours}</li>
+          </ul>
+          <h3 className="mb-3 mt-7 font-sans font-black text-white">Clinic</h3>
+          <ul className="grid gap-2">
+            {[
+              ["About us", "/about-us"],
+              ["Dr. Niyukty Arjal", "/about-us/dr-niyukty-arjal"],
+              ["Treatment prices", "/treatment-prices"],
+              ["Patient results", "/patient-results"],
+              ["Blog", "/blog"],
+              ["Contact", "/contact"],
+              ["Book an appointment", "/appointment"],
+            ].map(([label, href]) => (
+              <li key={href}>
+                <Link className="hover:text-[#E8177A]" href={href}>
+                  {label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

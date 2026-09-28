@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import {
+  JsonLd,
+  breadcrumbSchema,
   ButtonLink,
   CTASection,
   LocationSection,
@@ -21,11 +23,13 @@ export const metadata: Metadata = {
   title: "Dental Services in Kathmandu",
   description:
     "Explore dental services at Gums & Giggles, including root canal treatment, gum care, zirconia crowns, braces, implants, teeth cleaning, and wisdom tooth removal.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Dental Services", path: "/services" }])} />
       <PageHero
         eyebrow="Dental services"
         title="Dental services in Kathmandu"

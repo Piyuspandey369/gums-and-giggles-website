@@ -7,6 +7,8 @@ export * from "./sections/CTASection";
 export * from "./sections/HomeSections";
 export * from "./sections/LocationSection";
 export * from "./sections/PageHero";
+export * from "./seo/JsonLd";
+export * from "./seo/schema";
 export * from "./ui/ButtonLink";
 export * from "./ui/CardsGrid";
 export * from "./ui/CheckGrid";

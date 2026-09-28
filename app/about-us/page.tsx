@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import {
+  JsonLd,
+  breadcrumbSchema,
   ButtonLink,
   CTASection,
   CardsGrid,
@@ -24,11 +26,13 @@ export const metadata: Metadata = {
   title: "About Our Dental Clinic in Kathmandu",
   description:
     "Learn about Gums & Giggles Dental Clinic, a specialist-led dental clinic on Dhobidhara Marg in Kathmandu.",
+  alternates: { canonical: "/about-us" },
 };
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "About", path: "/about-us" }])} />
       <PageHero
         eyebrow="About our clinic"
         title="The story behind Gums & Giggles"
@@ -87,7 +91,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className={sectionPink}>
+      <section className={sectionPink} id="team">
         <div className={container}>
           <SectionHeader
             eyebrow="Meet the team"
@@ -119,14 +123,19 @@ export default function AboutPage() {
                 <li className="rounded-2xl bg-pink-100 px-4 py-3 font-bold text-zinc-800">Calm, clear consultations for children and adults</li>
               </ul>
               <div className={actionRowClass}>
-                <ButtonLink href="/services">Explore services</ButtonLink>
+                <ButtonLink href="/about-us/dr-niyukty-arjal">
+                  Meet Dr. Arjal
+                </ButtonLink>
+                <ButtonLink href="/gum-care" variant="secondary">
+                  Gum care treatments
+                </ButtonLink>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className={section}>
+      <section className={section} id="why-choose-us">
         <div className={container}>
           <SectionHeader
             eyebrow="Our approach"
@@ -162,6 +171,9 @@ export default function AboutPage() {
             center
           />
           <ClinicGallery />
+          <div className={`${actionRowClass} justify-center`}>
+            <ButtonLink href="/about-us/clinic">Take a closer look</ButtonLink>
+          </div>
         </div>
       </section>
 
