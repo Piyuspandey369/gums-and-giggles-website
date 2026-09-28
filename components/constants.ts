@@ -1,12 +1,40 @@
+export const siteUrl = "https://www.gumsandgiggles.com.np";
+
+// Canonical NAP. This exact wording must match the Google Business Profile and
+// every directory listing, character for character.
+// TODO (client): create info@gumsandgiggles.com.np, then remove this note.
 export const clinic = {
+  name: "Gums & Giggles Dental Clinic",
   phone: "+977 984-1243430",
   phoneHref: "tel:+9779841243430",
-  email: "mail@gumsandgiggles.com",
-  emailHref: "mailto:mail@gumsandgiggles.com",
-  address: "Dhobidhara Marg, Kathmandu 44600, Nepal",
+  phoneE164: "+977-984-1243430",
+  email: "info@gumsandgiggles.com.np",
+  emailHref: "mailto:info@gumsandgiggles.com.np",
+  address: "Dhobidhara Marg, Near Kumari Hall, Kamalpokhari, Kathmandu 44600, Nepal",
+  street: "Dhobidhara Marg, Near Kumari Hall, Kamalpokhari",
+  locality: "Kathmandu",
+  region: "Bagmati",
+  postalCode: "44600",
+  country: "NP",
+  latitude: 27.70895,
+  longitude: 85.32444,
   hours: "Sunday to Friday, 10 AM to 7 PM",
+  opens: "10:00",
+  closes: "19:00",
+  openDays: [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+  ],
   appointmentHref: "/appointment",
   mapsHref: "https://maps.app.goo.gl/ff5JWHjBLUdsBLij8",
+  sameAs: [
+    "https://www.facebook.com/gumsandgigglesdentalclinic/",
+    "https://www.instagram.com/gumsandgigglesdentalclinic_/",
+  ],
 };
 
 export const container = "mx-auto w-full max-w-6xl px-4 sm:px-5";

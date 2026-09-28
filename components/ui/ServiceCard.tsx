@@ -2,7 +2,13 @@ import Link from "next/link";
 import type { Service } from "@/data/services";
 import { cardClass } from "../constants";
 
-export function ServiceCard({ service }: { service: Service }) {
+export function ServiceCard({
+  service,
+  basePath = "/services",
+}: {
+  service: Service;
+  basePath?: string;
+}) {
   return (
     <article className={`${cardClass} grid grid-cols-[3.375rem_minmax(0,1fr)] gap-4 p-5 md:p-6`}>
       <div className="grid h-14 w-14 place-items-center rounded-2xl bg-pink-50 font-sans text-2xl font-black text-[#E8177A]">
@@ -17,7 +23,7 @@ export function ServiceCard({ service }: { service: Service }) {
           {service.price}
         </p>
         <Link
-          href={`/services/${service.slug}`}
+          href={`${basePath}/${service.slug}`}
           className="mt-3 inline-flex font-sans text-sm font-black text-[#E8177A] hover:text-[#c4115f]"
         >
           Learn more

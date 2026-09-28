@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ButtonLink } from "../ui/ButtonLink";
 import { clinic, container } from "../constants";
+import { MobileNav } from "./MobileNav";
+import { navItems } from "./nav";
 
 function Brand() {
   return (
@@ -53,24 +55,51 @@ export function Header() {
       <div className={`${container} flex min-h-[4.5rem] items-center justify-between gap-5`}>
         <Brand />
         <nav
-          className="flex items-center gap-3 text-sm font-black text-zinc-800 sm:gap-5"
+          className="hidden items-center gap-5 text-sm font-black text-zinc-800 lg:flex xl:gap-6"
           aria-label="Main navigation"
         >
           <Link className="hover:text-[#E8177A]" href="/">
             Home
           </Link>
-          <Link className="hidden hover:text-[#E8177A] sm:inline" href="/about-us">
-            About
-          </Link>
-          <Link className="hover:text-[#E8177A]" href="/services">
-            Services
-          </Link>
-          <a className="hover:text-[#E8177A]" href={clinic.phoneHref}>
-            Call
-          </a>
+          {navItems.map((item) =>
+            item.children?.length ? (
+              <div className="group relative" key={item.href}>
+                <Link
+                  className="inline-flex items-center gap-1.5 py-6 hover:text-[#E8177A] group-focus-within:text-[#E8177A] group-hover:text-[#E8177A]"
+                  href={item.href}
+                >
+                  {item.label}
+                  <span aria-hidden="true" className="text-[0.6rem] text-[#E8177A]">
+                    &#9660;
+                  </span>
+                </Link>
+                <div className="invisible absolute left-0 top-full z-30 w-72 rounded-[1.25rem] border border-pink-100 bg-white p-3 opacity-0 shadow-[0_18px_44px_rgba(17,17,17,0.12)] transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                  <ul className="grid gap-1">
+                    {item.children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          className="block rounded-xl px-3 py-2 text-sm font-bold text-zinc-700 hover:bg-pink-50 hover:text-[#E8177A]"
+                          href={child.href}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <Link className="hover:text-[#E8177A]" href={item.href} key={item.href}>
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
-        <div className="hidden lg:block">
-          <ButtonLink href={clinic.appointmentHref}>Book Appointments</ButtonLink>
+        <div className="flex items-center gap-3">
+          <div className="hidden lg:block">
+            <ButtonLink href={clinic.appointmentHref}>Book Appointments</ButtonLink>
+          </div>
+          <MobileNav />
         </div>
       </div>
     </header>

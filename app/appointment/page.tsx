@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import {
+  JsonLd,
+  breadcrumbSchema,
   ButtonLink,
   LocationSection,
   PageHero,
@@ -18,11 +20,13 @@ export const metadata: Metadata = {
   title: "Book an Appointment",
   description:
     "Book a dental appointment at Gums & Giggles Dental Clinic on Dhobidhara Marg, Kathmandu.",
+  alternates: { canonical: "/appointment" },
 };
 
 export default function AppointmentPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Book an Appointment", path: "/appointment" }])} />
       <PageHero
         eyebrow="Book a visit"
         title="Book an appointment at Gums & Giggles"
