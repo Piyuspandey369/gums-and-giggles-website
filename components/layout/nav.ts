@@ -40,8 +40,6 @@ export const navItems: NavItem[] = [
       })),
     ],
   },
-  { label: "Prices", href: "/treatment-prices" },
-  { label: "Results", href: "/patient-results" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];

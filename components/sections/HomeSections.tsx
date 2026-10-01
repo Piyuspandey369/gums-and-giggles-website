@@ -14,6 +14,7 @@ import {
   cardClass,
   clinic,
   container,
+  eyebrowClass,
   h2Class,
   imagePanelClass,
   leadClass,
@@ -50,6 +51,57 @@ const patientReviews = [
   },
 ];
 
+const gumCareConcerns = [
+  {
+    title: "Bleeding gums",
+    text: "Gums that repeatedly bleed while brushing or flossing may be inflamed and should be assessed.",
+    href: "/services/gum-care-and-periodontics",
+    linkLabel: "Bleeding gums & gingivitis",
+    image: "/images/gum-care/bleeding-gums.png",
+    imageAlt: "Close-up of mild bleeding gums while brushing",
+  },
+  {
+    title: "Red, puffy or swollen gums",
+    text: "Swelling and tenderness can develop with gingivitis or more advanced periodontal inflammation.",
+    href: "/services/gum-care-and-periodontics",
+    linkLabel: "Explore gum care",
+    image: "/images/gum-care/swollen-gums.png",
+    imageAlt: "Close-up of red and swollen gums around front teeth",
+  },
+  {
+    title: "Persistent bad breath",
+    text: "If bad breath continues despite normal oral hygiene, gum inflammation or deeper pockets may need to be ruled out.",
+    href: clinic.appointmentHref,
+    linkLabel: "Book a gum assessment",
+    image: "/images/gum-care/bad-breath.png",
+    imageAlt: "Patient concerned about persistent bad breath",
+  },
+  {
+    title: "Receding gums",
+    text: "Teeth appearing longer or roots becoming sensitive may be signs of gum recession.",
+    href: "/services/gum-care-and-periodontics",
+    linkLabel: "Gum recession treatment",
+    image: "/images/gum-care/receding-gums.png",
+    imageAlt: "Close-up of gum recession around front teeth",
+  },
+  {
+    title: "Loose or shifting teeth",
+    text: "Loss of periodontal support is one possible cause of adult teeth becoming mobile or changing position.",
+    href: "/services/gum-care-and-periodontics",
+    linkLabel: "Gum disease treatment",
+    image: "/images/gum-care/loose-teeth.png",
+    imageAlt: "Close-up of front teeth with subtle spacing and shifting",
+  },
+  {
+    title: "Been told you need deep cleaning?",
+    text: "Scaling and root planing works below the gumline when routine cleaning is not enough.",
+    href: "/services/teeth-cleaning-and-scaling",
+    linkLabel: "Deep cleaning & root planing",
+    image: "/images/gum-care/deep-cleaning.png",
+    imageAlt: "Dental deep cleaning near the gumline",
+  },
+];
+
 export function HomeHero() {
   return (
     <PageHero
@@ -81,6 +133,65 @@ export function HomeStats() {
         { value: "6", label: "Days open weekly" },
       ]}
     />
+  );
+}
+
+export function GumCareFocusSection() {
+  return (
+    <section className="bg-white py-8 md:py-10">
+      <div className={container}>
+        <div className="mb-5 flex flex-col gap-3 md:mb-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <p className={eyebrowClass}>Concerned about your gums?</p>
+            <h2 className="font-sans text-2xl font-black leading-tight text-zinc-950 md:text-3xl">
+              Start with what you are noticing
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-600 md:text-base">
+              You do not need to know the diagnosis before booking. Your
+              symptoms help us decide what kind of assessment you need.
+            </p>
+          </div>
+          <Link
+            className="inline-flex shrink-0 font-sans text-sm font-black text-[#E8177A] hover:text-[#c4115f]"
+            href="/services/gum-care-and-periodontics"
+          >
+            Explore all gum care →
+          </Link>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          {gumCareConcerns.map((concern) => (
+            <article
+              className={`${cardClass} group overflow-hidden transition duration-300 hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-[0_14px_30px_rgba(232,23,122,0.1)]`}
+              key={concern.title}
+            >
+              <div className="relative h-36 overflow-hidden bg-pink-50 md:h-28">
+                <Image
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                  src={concern.image}
+                  alt={concern.imageAlt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                />
+              </div>
+              <div className="p-4">
+                <h3 className="font-sans text-base font-black leading-tight text-zinc-950">
+                  {concern.title}
+                </h3>
+                <p className="mt-2 overflow-hidden text-sm leading-6 text-zinc-600 [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+                  {concern.text}
+                </p>
+                <Link
+                  className="mt-2.5 inline-flex font-sans text-sm font-black text-[#E8177A] hover:text-[#c4115f]"
+                  href={concern.href}
+                >
+                  {concern.linkLabel} →
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -265,11 +376,6 @@ export function HomeFAQSection() {
                 "We are located at Dhobidhara Marg, Kathmandu 44600, Nepal, with easy access from Lazimpat, Naxal, Baluwatar, Maharajgunj, and Thamel.",
             },
             {
-              question: "Do you provide emergency dental care?",
-              answer:
-                "Yes. Call +977 984-1243430 for toothache, swelling, broken teeth, abscesses, and urgent dental concerns.",
-            },
-            {
               question: "How much do dental implants cost in Kathmandu?",
               answer:
                 "Dental implants at Gums & Giggles start from NPR 100,000. Final pricing depends on bone support, crown material, and supporting treatment needs.",
@@ -278,6 +384,51 @@ export function HomeFAQSection() {
               question: "How much do braces cost?",
               answer:
                 "Braces start from NPR 70,000. The exact quote depends on braces type and case complexity.",
+            },
+            {
+              question: "What type of dentist treats gum disease?",
+              answer:
+                "A periodontist is a dentist with postgraduate specialist training focused on the gums, supporting bone and tissues around the teeth and dental implants. Gums & Giggles is led by Dr. Niyukty Arjal, MDS Periodontist.",
+            },
+            {
+              question: "Should I see a periodontist if my gums bleed?",
+              answer:
+                "Repeated bleeding during brushing or flossing can be a sign of gum inflammation. A professional examination can help determine whether the cause is gingivitis, tartar buildup, or a deeper periodontal problem.",
+            },
+            {
+              question: "Can gingivitis be treated?",
+              answer:
+                "Gingivitis is an early stage of gum inflammation where supporting bone has not yet been lost. Professional cleaning and improved daily plaque control can often restore healthier gums.",
+            },
+            {
+              question: "Can gum disease cause bad breath?",
+              answer:
+                "Yes, gum inflammation and periodontal pockets can contribute to persistent bad breath because bacteria can accumulate around and below the gumline. Bad breath can also have other causes, so a proper examination is important.",
+            },
+            {
+              question: "Why are my gums receding?",
+              answer:
+                "Gum recession can develop because of periodontal disease, aggressive brushing, thin gum tissue, tooth position, or other local factors. Treatment depends on identifying the cause first.",
+            },
+            {
+              question: "Why do my teeth feel loose?",
+              answer:
+                "Loss of supporting bone from periodontal disease is one possible cause of loose teeth. Other dental conditions can also contribute, so loose adult teeth should be examined professionally.",
+            },
+            {
+              question: "Do I need a referral to see Dr. Niyukty?",
+              answer:
+                "No. Patients can book directly for a periodontal consultation.",
+            },
+            {
+              question: "How much does gum treatment cost in Kathmandu?",
+              answer:
+                "The cost depends on the condition and how much treatment is needed. Routine scaling and polishing starts from NPR 2,000. Deep cleaning, gum recession treatment, and periodontal surgery are quoted after examination.",
+            },
+            {
+              question: "How often should someone with gum disease visit the dentist?",
+              answer:
+                "Patients with a history of periodontal disease may need more frequent maintenance than patients with healthy gums. The recommended interval depends on the current condition of the gums and the patient's risk factors.",
             },
           ]}
         />

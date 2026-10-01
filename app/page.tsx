@@ -2,6 +2,7 @@ import {
   ClinicOverviewSection,
   DoctorIntroSection,
   FeaturedServicesSection,
+  GumCareFocusSection,
   HomeClosingSections,
   HomeFAQSection,
   HomeHero,
@@ -15,6 +16,7 @@ export default function Home() {
     <>
       <HomeHero />
       <HomeStats />
+      <GumCareFocusSection />
       <FeaturedServicesSection />
       <PatientBenefitsSection />
       <DoctorIntroSection />
